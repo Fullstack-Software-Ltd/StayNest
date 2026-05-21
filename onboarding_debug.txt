@@ -1,0 +1,7 @@
+SESSION: null
+DATA: {
+  "full_name": "manzi",
+  "phone": "0791706463",
+  "bio": "the best hoster"
+}
+ERROR: Not authenticated. Session has no user ID.

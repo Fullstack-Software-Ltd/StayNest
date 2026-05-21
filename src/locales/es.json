@@ -1,0 +1,446 @@
+{
+  "nav": {
+    "stays": "Estancias",
+    "experiences": "Experiencias",
+    "help": "Centro de ayuda",
+    "login": "Iniciar sesión",
+    "register": "Registrarse",
+    "dashboard": "Tablero",
+    "my_bookings": "Mis reservas",
+    "favorites": "Favoritos",
+    "settings": "Configuración de la cuenta",
+    "logout": "Cerrar sesión",
+    "notifications": "Notificaciones",
+    "sign_out": "Cerrar sesión",
+    "become_host": "Convertirse en anfitrión",
+    "switch_to_hosting": "Cambiar a modo anfitrión",
+    "switch_to_guest": "Cambiar a modo huésped",
+    "open_menu": "Abrir menú"
+  },
+  "favorites": {
+    "title": "Favoritos",
+    "subtitle": "Todos los lugares que has guardado para tu próximo viaje.",
+    "empty_title": "Aún no hay favoritos",
+    "empty_description": "Haz clic en el icono del corazón en cualquier propiedad para guardarla aquí.",
+    "explore": "Explorar propiedades"
+  },
+  "settings": {
+    "title": "Configuración de la cuenta",
+    "tabs": {
+      "personal": "Información personal",
+      "security": "Inicio de sesión y seguridad",
+      "preferences": "Idioma y moneda"
+    },
+    "personal": {
+      "full_name": "Nombre completo",
+      "legal_name": "Nombre legal",
+      "preferred_name": "Nombre preferido",
+      "email": "Correo electrónico",
+      "phone": "Número de teléfono",
+      "bio": "Biografía corta"
+    },
+    "save": "Guardar cambios",
+    "discard": "Descartar",
+    "unsaved": "Cambios sin guardar"
+  },
+  "property": {
+    "starting_from": "Desde",
+    "night": "noche",
+    "total": "total",
+    "reviews": "reseñas",
+    "review": "reseña",
+    "guest": "huésped",
+    "guests": "huéspedes",
+    "view_property": "Ver propiedad",
+    "price_on_request": "Precio bajo petición"
+  },
+  "booking": {
+    "total_stay": "Estancia total",
+    "dates": "Fechas",
+    "guests": "Huéspedes",
+    "payment": "Pago",
+    "paid": "Pagado",
+    "pending": "Pendiente",
+    "need_help": "¿Necesitas ayuda?",
+    "complete_payment": "Completar pago",
+    "leave_review": "Dejar una reseña",
+    "my_bookings_title": "Mis reservas",
+    "my_bookings_subtitle": "Gestiona tus reservas e historial de viajes en Urugostay.",
+    "find_stay": "Buscar estancia",
+    "details": {
+      "title": "Detalles de la reserva",
+      "id": "Reserva #",
+      "property_info": "Información de la propiedad",
+      "room_info": "Detalles de la habitación",
+      "stay_info": "Información de la estancia",
+      "check_in": "Entrada",
+      "check_out": "Salida",
+      "guests": "Huéspedes",
+      "total_cost": "Costo total de la estancia",
+      "back": "Volver a Reservas"
+    }
+  },
+  "owner": {
+    "welcome": "Bienvenido de nuevo",
+    "add_property": "Agregar propiedad",
+    "total_properties": "Total de propiedades",
+    "live_in_search": "En línea",
+    "active_bookings": "Reservas activas",
+    "total_earnings": "Ganancias totales",
+    "your_properties": "Tus propiedades",
+    "my_properties": "Mis propiedades",
+    "reservations": "Reservas",
+    "earnings": "Ganancias",
+    "view_all": "Ver todo",
+    "recent_bookings": "Reservas recientes",
+    "under_review": "propiedad está en revisión",
+    "properties_under_review": "propiedades están en revisión"
+  },
+  "rooms": {
+    "available_rooms": "Habitaciones disponibles",
+    "room_types": "tipos de habitaciones",
+    "up_to": "Hasta",
+    "guests": "huéspedes",
+    "per_night": "por noche",
+    "reserve": "Reservar",
+    "select_room": "Seleccionar habitación",
+    "only": "¡Solo quedan",
+    "left": "habitaciones!",
+    "available_choice": "Seleccione la habitación perfecta para su estancia"
+  },
+  "confirm": {
+    "step_1": "Paso 1 de 2: Reserva",
+    "title": "Confirma tu reserva",
+    "check_in": "Fecha de entrada",
+    "check_out": "Fecha de salida",
+    "num_guests": "Número de huéspedes",
+    "max_capacity": "Capacidad máxima para esta habitación",
+    "processing": "Procesando reserva...",
+    "confirm_btn": "Confirmar reserva",
+    "room_type": "Tipo de habitación",
+    "price_per_night": "Precio por noche",
+    "nights": "Noches",
+    "total_price": "Precio total"
+  },
+  "details": {
+    "guest_reviews": "Reseñas de los huéspedes",
+    "reviews_subtitle": "Escucha lo que otros huéspedes tienen que decir sobre su estancia.",
+    "about": "Sobre esta propiedad",
+    "amenities": "Servicios",
+    "location": "Ubicación",
+    "host": "Sobre el anfitrión",
+    "rules": "Reglas de la casa",
+    "type": "Tipo de propiedad",
+    "address": "Dirección",
+    "guarantee_title": "Garantía Urugostay",
+    "guarantee_text": "Cada reserva a través de Urugostay está respaldada por nuestro soporte completo y garantía de precio. Nos aseguramos de que su anfitrión esté verificado y listo para recibirle.",
+    "neighborhood": "Barrio",
+    "neighborhood_desc": "Ubicado en el vibrante corazón de {{city}}, este/a {{type}} ofrece fácil acceso a las atracciones locales y experiencias culinarias auténticas.",
+    "map_soon": "Integración de mapa próximamente...",
+    "social_proof": "Amado por los huéspedes por su excepcional hospitalidad y ubicación privilegiada."
+  },
+  "app_name": "Urugostay",
+  "app_tagline": "Encuentra tu nido, en cualquier lugar",
+  "home": {
+    "hero_title": "El estándar de su próxima",
+    "hero_stay": "estancia",
+    "hero_subtitle": "Descubra hoteles, habitaciones, villas y resorts de primer nivel en las mil colinas.",
+    "search": {
+      "where": "Dónde",
+      "check_in": "Llegada",
+      "check_out": "Salida",
+      "guests": "Huéspedes",
+      "placeholder": "Buscar destinos",
+      "add_dates": "Agregar fechas",
+      "add_guests": "Agregar huéspedes",
+      "search_btn": "Buscar"
+    },
+    "trust": {
+      "reviews": "{{count}} Reseñas Verificadas",
+      "hosts": "{{count}} Anfitriones Expertos",
+      "support": "Soporte Global 24/7"
+    },
+    "popular": {
+      "label": "Popular",
+      "title": "Los favoritos de los huéspedes",
+      "subtitle": "Propiedades amadas por los viajeros, clasificadas por calificaciones y reseñas."
+    },
+    "discover": {
+      "label": "Descubrir",
+      "title": "Explora las mejores estancias de Ruanda",
+      "subtitle": "Propiedades seleccionadas para una experiencia inolvidable en la tierra de las mil colinas."
+    },
+    "cta": {
+      "title": "Anuncia tu propiedad con nosotros",
+      "subtitle": "Únete a miles de anfitriones que obtienen ingresos compartiendo sus espacios únicos con viajeros de todo el mundo.",
+      "button": "Hazte anfitrión"
+    },
+    "view_all": "Ver todo",
+    "no_results": "Aún no hay propiedades aprobadas disponibles. ¡Vuelve pronto!",
+    "explore": "Explorar"
+  },
+  "auth": {
+    "login_title": "Bienvenido de nuevo",
+    "login_subtitle": "Inicie sesión en su cuenta de Urugostay",
+    "register_title": "Crea tu cuenta",
+    "register_subtitle": "Únete a Urugostay para encontrar tu estancia perfecta",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "password_placeholder": "Mín. 6 caracteres",
+    "forgot_password": "¿Olvidaste tu contraseña?",
+    "no_account": "¿No tienes una cuenta?",
+    "have_account": "¿Ya tienes una cuenta?",
+    "create_account": "Crear cuenta",
+    "sign_in": "Iniciar sesión",
+    "signing_in": "Iniciando sesión...",
+    "creating_account": "Creando cuenta...",
+    "remember_me": "Recuérdame",
+    "full_name": "Nombre completo",
+    "full_name_placeholder": "Juan Pérez",
+    "errors": {
+      "fill_all": "Por favor complete todos los campos.",
+      "invalid_credentials": "Correo electrónico o contraseña incorrectos. Por favor, inténtelo de nuevo.",
+      "password_length": "La contraseña debe tener al menos 6 caracteres.",
+      "email_taken": "Este correo electrónico ya está registrado. Intente iniciar sesión en su lugar."
+    },
+    "new_password": "Nueva contraseña",
+    "confirm_password": "Confirmar contraseña",
+    "success": {
+      "title": "¡Cuenta creada!",
+      "redirecting": "Redirigiéndote al inicio de sesión..."
+    },
+    "benefits": {
+      "quote": "La mejor manera de descubrir un lugar nuevo es a través de los ojos de alguien que lo llama hogar.",
+      "team": "El equipo de Urugostay",
+      "properties_val": "2.5M+",
+      "properties_label": "Propiedades",
+      "countries_val": "150+",
+      "countries_label": "Países",
+      "rating_val": "4.9★",
+      "rating_label": "Calificación",
+      "free_val": "Gratis",
+      "free_label": "Para unirse",
+      "feature_stays": "Descubre estancias únicas por todo el mundo",
+      "feature_secure": "Reserva de forma segura con anfitriones verificados",
+      "feature_reviews": "Deja reseñas y ayuda a la comunidad"
+    }
+  },
+  "footer": {
+    "tagline": "Tu destino principal para encontrar la estancia perfecta en Ruanda y más allá.",
+    "description": "Su destino principal para encontrar la estancia perfecta en Ruanda y más allá. Conectamos a los viajeros con espacios únicos y experiencias auténticas.",
+    "company": "Empresa",
+    "about_us": "Sobre nosotros",
+    "explore_stays": "Explorar estancias",
+    "become_host": "Hazte anfitrión",
+    "support": "Soporte",
+    "help_center": "Centro de ayuda",
+    "safety": "Información de seguridad",
+    "cancellation": "Opciones de cancelación",
+    "legal": "Legal",
+    "privacy": "Política de privacidad",
+    "terms": "Términos de servicio",
+    "cookies": "Política de cookies",
+    "contact": "Contacto",
+    "rights": "Todos los derechos reservados."
+  },
+  "common": {
+    "all": "Todo",
+    "any": "Cualquiera",
+    "clear": "Borrar",
+    "min": "Mín",
+    "max": "Máx",
+    "property_types": {
+      "hotel": "Hotel",
+      "guestroom": "Habitación",
+      "villa": "Villa",
+      "resort": "Resort",
+      "apartment": "Apartamento",
+      "guesthouse": "Casa de huéspedes",
+      "budget": "Económico"
+    },
+    "upload": {
+      "click": "Haga clic para cargar",
+      "hint": "PNG, JPG o WEBP (máx. 5 MB)",
+      "add_photo": "Añadir foto",
+      "min_photos": "(Mín {{count}} fotos)",
+      "error": "Error al cargar la imagen. Por favor, inténtelo de nuevo."
+    },
+    "empty": {
+      "default_title": "Nada aquí todavía",
+      "default_desc": "El contenido aparecerá aquí cuando esté disponible.",
+      "search_title": "No se encontraron resultados",
+      "search_desc": "Intente ajustar sus filtros de búsqueda o explorar diferentes fechas.",
+      "bookings_title": "Aún no hay reservas",
+      "bookings_desc": "Sus reservas próximas y pasadas aparecerán aquí.",
+      "properties_title": "Aún no hay propiedades",
+      "properties_desc": "Agregue su primera propiedad para comenzar a aceptar huéspedes.",
+      "notifications_title": "¡Estás al día!",
+      "notifications_desc": "Te avisaremos cuando ocurra algo importante.",
+      "reviews_title": "Aún no hay reseñas",
+      "reviews_desc": "Las reseñas de los huéspedes aparecerán aquí después de las estancias completadas."
+    },
+    "error": {
+      "generic_title": "Algo salió mal",
+      "generic_message": "Ocurrió un error inesperado. Por favor, inténtelo de nuevo.",
+      "network_title": "La conexión falló",
+      "network_message": "No se pudo establecer conexión con el servidor. Compruebe su conexión a internet.",
+      "permission_title": "Acceso denegado",
+      "permission_message": "No tienes permiso para ver este contenido.",
+      "retry": "Intentar de nuevo"
+    },
+    "search": {
+      "filters_title": "Filtros",
+      "no_results": "No se encontraron propiedades",
+      "no_results_desc": "No pudimos encontrar ninguna propiedad que coincida con su búsqueda. Intente ajustar sus filtros o buscar en otra área.",
+      "clear_filters": "Borrar todos los filtros",
+      "filters": {
+        "property_type": "Tipo de propiedad",
+        "price_range": "Rango de precios",
+        "guest_capacity": "Capacidad de huéspedes"
+      }
+    },
+    "reviews": {
+      "title": "Califica tu estancia",
+      "subtitle": "¿Cómo fue tu tiempo en {{name}}?",
+      "rate": "Califica tu experiencia",
+      "share": "Comparte tus pensamientos",
+      "share_placeholder": "Cuéntanos sobre la propiedad, la ubicación o el anfitrión...",
+      "average_score": "Puntuación media",
+      "based_on": "Basado en {{count}} {{label}}",
+      "empty": "Aún no hay reseñas",
+      "no_reviews_desc": "No se encontraron reseñas todavía.",
+      "post": "Publicar reseña"
+    },
+    "submitting": "Enviando...",
+    "settings": {
+      "language_label": "Idioma global",
+      "currency_label": "Moneda preferida",
+      "modified_hint": "Ha modificado la configuración de su perfil.",
+      "regional_title": "Preferencias regionales",
+      "regional_desc": "Cambiar su moneda actualizará cómo se muestran los precios en toda la plataforma utilizando tipos de cambio en tiempo real vinculados al USD.",
+      "password_title": "Contraseña",
+      "password_subtitle": "Restablecer la contraseña de su cuenta.",
+      "change_password": "Cambiar contraseña",
+      "two_factor": {
+        "title": "Autenticación de dos factores",
+        "protected": "Su cuenta está protegida con autenticación TOTP.",
+        "setup_desc": "Añada una capa adicional de seguridad a su cuenta.",
+        "enable": "Habilitar MFA",
+        "setup_title": "Configurar autenticador",
+        "generating_qr": "Generando QR...",
+        "scan_hint": "Escanee este código QR con Google Authenticator o Authy",
+        "manual_code": "Código manual",
+        "verification_code": "Código de verificación",
+        "confirm_activate": "Confirmar y activar",
+        "success": "¡2FA habilitado con éxito!",
+        "checking": "Comprobando el estado de 2FA..."
+      }
+    },
+    "user_fallback": "Usuario",
+    "guest_fallback": "Huésped",
+    "status": {
+      "pending": "En revisión",
+      "approved": "Aprobado",
+      "rejected": "Rechazado",
+      "draft": "Borrador",
+      "confirmed": "Confirmado",
+      "cancelled": "Cancelado",
+      "completed": "Completado",
+      "paid": "Pagado",
+      "failed": "Fallido",
+      "refunded": "Reembolsado",
+      "active": "Activo",
+      "inactive": "Inactivo"
+    },
+    "saving": "Guardando...",
+    "update": "Actualizar",
+    "cancel": "Cancelar",
+    "disable": "Desactivar"
+  },
+  "help": {
+    "title": "Centro de ayuda",
+    "subtitle": "Todo lo que necesitas saber sobre el uso de Urugostay.",
+    "search_placeholder": "Buscar artículos de ayuda...",
+    "still_help": "¿Aún necesitas ayuda?",
+    "still_help_desc": "Nuestro equipo de soporte está disponible las 24 horas, los 7 días de la semana, para ayudarte con cualquier problema o pregunta.",
+    "contact_support": "Contactar soporte",
+    "live_chat": "Chat en vivo",
+    "sections": {
+      "getting_started": {
+        "title": "Primeros pasos",
+        "q1": "¿Cómo creo una cuenta?",
+        "a1": "Haz clic en el botón \"Registrarse\" en la esquina superior derecha y sigue las instrucciones.",
+        "q2": "¿Urugostay es gratis?",
+        "a2": "Sí, buscar y explorar propiedades es completamente gratis. Solo cobramos una pequeña tarifa de servicio en las reservas exitosas."
+      },
+      "booking": {
+        "title": "Reservar una estancia",
+        "q1": "¿Cómo reservo un lugar?",
+        "a1": "Encuentra una propiedad que te guste, selecciona tus fechas y haz clic en el botón \"Reservar ahora\" en la página de la propiedad.",
+        "q2": "¿Puedo cancelar mi reserva?",
+        "a2": "Las políticas de cancelación varían según el anfitrión. Consulta la política de cancelación específica que figura en la página de la propiedad antes de reservar."
+      },
+      "hosting": {
+        "title": "Hospedar",
+        "q1": "¿Cómo me convierto en anfitrión?",
+        "a1": "Haz clic en \"Hacerse anfitrión\" en el menú de tu cuenta y completa los detalles de tu propiedad para su aprobación.",
+        "q2": "¿Cuáles son las tarifas de anfitrión?",
+        "a2": "Cobramos una comisión del 3% en cada reserva para cubrir el procesamiento de pagos y el mantenimiento de la plataforma."
+      },
+      "security": {
+        "title": "Pagos y seguridad",
+        "q1": "¿Es seguro mi pago?",
+        "a1": "Sí, utilizamos un procesamiento de pagos cifrado estándar de la industria para garantizar que sus datos estén siempre seguros.",
+        "q2": "¿Cuándo se me cobrará?",
+        "a2": "Se le cobrará tan pronto como el anfitrión confirme su solicitud de reserva."
+      }
+    }
+  },
+  "payment": {
+    "secure_checkout": "Pago seguro",
+    "terms_title": "Términos y condiciones",
+    "terms_text": "Al hacer clic en \"Completar pago\", aceptas las condiciones de reserva de la propiedad y los términos del cliente de Urugostay. Tu información de pago está encriptada y se procesa de forma segura.",
+    "processing_securely": "Procesando de forma segura...",
+    "complete_payment_btn": "Completar pago — {{price}}",
+    "error_payment": "El pago falló. Por favor, inténtelo de nuevo.",
+    "success_title": "¡Pago exitoso!",
+    "success_message": "Tu reserva en {{name}} ahora está totalmente confirmada.",
+    "details_title": "Detalles del pago",
+    "status_label": "Estado",
+    "reference_label": "Referencia",
+    "method_label": "Método",
+    "booking_context_title": "Contexto de la reserva",
+    "check_in_out_label": "Entrada / Salida",
+    "amount_paid_label": "Monto pagado",
+    "view_all_btn": "Ver todas las reservas",
+    "home_btn": "Inicio",
+    "help_text": "¿Necesitas ayuda? Contacta con nuestro soporte en"
+  },
+  "notifications": {
+    "empty_title": "No hay notificaciones",
+    "empty_desc": "Te avisaremos cuando ocurra algo importante."
+  },
+  "property_form": {
+    "edit_title": "Editar propiedad",
+    "list_title": "Publicar su propiedad",
+    "photos_label": "Fotos de la propiedad",
+    "name_label": "Nombre de la propiedad",
+    "name_placeholder": "p. ej. Grand View Resort",
+    "type_label": "Tipo de propiedad",
+    "description_label": "Descripción",
+    "description_placeholder": "Cuéntales a los viajeros qué hace que tu lugar sea especial...",
+    "country_label": "País",
+    "city_label": "Ciudad",
+    "address_label": "Dirección detallada",
+    "min_photos_error": "Se requiere un mínimo de {{count}} fotos para publicar una propiedad.",
+    "save_error": "Error al guardar la propiedad. Inténtelo de nuevo.",
+    "submit_list": "Publicar propiedad ahora",
+    "submit_update": "Actualizar propiedad",
+    "main_image_label": "Imagen principal de la propiedad",
+    "uploading_image": "Subiendo su imagen...",
+    "upload_hint_main": "Haga clic para subir o arrastrar y soltar",
+    "upload_hint_sub": "PNG, JPG o WebP hasta 5 MB",
+    "image_type_error": "Por favor, suba un archivo de imagen.",
+    "upload_error": "¡Error al subir la imagen!"
+  }
+}

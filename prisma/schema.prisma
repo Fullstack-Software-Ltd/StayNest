@@ -1,0 +1,230 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String     @id @default(uuid()) @db.Uuid
+  email         String     @unique
+  password      String?
+  created_at    DateTime   @default(now()) @db.Timestamptz(6)
+  emailVerified DateTime?  @db.Timestamptz(6)
+  image         String?
+  name          String?
+  accounts      Account[]
+  favorites     Favorite[]
+  profile       Profile?
+  sessions      Session[]
+  wishlists     Wishlist[]
+}
+
+model Account {
+  id                String  @id @default(uuid()) @db.Uuid
+  userId            String  @db.Uuid
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(uuid()) @db.Uuid
+  sessionToken String   @unique
+  userId       String   @db.Uuid
+  expires      DateTime @db.Timestamptz(6)
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime @db.Timestamptz(6)
+
+  @@unique([identifier, token])
+}
+
+model Profile {
+  id                    String         @id @db.Uuid
+  full_name             String
+  email                 String         @unique
+  role                  String         @default("guest")
+  phone                 String?
+  avatar_url            String?
+  status                String?
+  created_at            DateTime       @default(now()) @db.Timestamptz(6)
+  bio                   String?
+  hosting_business_name String?
+  payout_method         String?        @default("none")
+  payout_momo_number    String?
+  payout_momo_provider  String?
+  stripe_connect_id     String?
+  language              String?        @default("English")
+  currency              String?        @default("USD")
+  isHostOnboarded       Boolean        @default(false)
+  hostCommissionAccepted   Boolean        @default(false)
+  hostCommissionRate       Decimal?       @db.Decimal(5, 2)
+  hostCommissionAcceptedAt DateTime?      @db.Timestamptz(6)
+  bookings              Booking[]
+  notifications         Notification[]
+  payments              Payment[]
+  user                  User           @relation(fields: [id], references: [id], onDelete: Cascade)
+  payoutRequests        PayoutRequest[]
+  properties            Property[]
+  reviews               Review[]
+}
+
+model Property {
+  id             String     @id @default(uuid()) @db.Uuid
+  owner_id       String     @db.Uuid
+  name           String
+  type           String
+  description    String
+  country        String
+  city           String
+  address        String
+  main_image_url String?
+  images         String[]   @default([])
+  amenities      String[]   @default([])
+  status         String     @default("draft")
+  latitude       Decimal?   @db.Decimal
+  longitude      Decimal?   @db.Decimal
+  created_at     DateTime   @default(now()) @db.Timestamptz(6)
+  updated_at     DateTime   @default(now()) @updatedAt @db.Timestamptz(6)
+  daily_price    Decimal?   @db.Decimal
+  is_whole_unit  Boolean    @default(true)
+  max_guests     Int        @default(1)
+  monthly_price  Decimal?   @db.Decimal
+  offers_daily   Boolean    @default(true)
+  offers_monthly Boolean    @default(false)
+  bookings       Booking[]
+  favorites      Favorite[]
+  owner          Profile    @relation(fields: [owner_id], references: [id], onDelete: Cascade)
+  reviews        Review[]
+  rooms          Room[]
+  wishlists      Wishlist[]
+}
+
+model Room {
+  id              String    @id @default(uuid()) @db.Uuid
+  property_id     String    @db.Uuid
+  name            String
+  description     String
+  price_per_night Decimal   @db.Decimal
+  capacity        Int
+  available_rooms Int
+  bed_type        String?
+  size_sqm        Int?
+  facilities      Json?     @default("[]")
+  created_at      DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at      DateTime  @default(now()) @updatedAt @db.Timestamptz(6)
+  bookings        Booking[]
+  property        Property  @relation(fields: [property_id], references: [id], onDelete: Cascade)
+}
+
+model Booking {
+  id          String   @id @default(uuid()) @db.Uuid
+  user_id     String   @db.Uuid
+  property_id String   @db.Uuid
+  room_id     String   @db.Uuid
+  check_in    DateTime @db.Date
+  check_out   DateTime @db.Date
+  guests      Int
+  total_price Decimal  @db.Decimal
+  status      String   @default("confirmed")
+  created_at  DateTime @default(now()) @db.Timestamptz(6)
+  updated_at  DateTime @default(now()) @updatedAt @db.Timestamptz(6)
+  property    Property @relation(fields: [property_id], references: [id], onDelete: Cascade)
+  room        Room     @relation(fields: [room_id], references: [id], onDelete: Cascade)
+  user        Profile  @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  payment     Payment?
+  review      Review?
+}
+
+model Review {
+  id          String   @id @default(uuid()) @db.Uuid
+  user_id     String   @db.Uuid
+  property_id String   @db.Uuid
+  booking_id  String   @unique @db.Uuid
+  rating      Int
+  comment     String
+  created_at  DateTime @default(now()) @db.Timestamptz(6)
+  updated_at  DateTime @default(now()) @updatedAt @db.Timestamptz(6)
+  booking     Booking  @relation(fields: [booking_id], references: [id], onDelete: Cascade)
+  property    Property @relation(fields: [property_id], references: [id], onDelete: Cascade)
+  user        Profile  @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model Payment {
+  id                    String   @id @default(uuid()) @db.Uuid
+  booking_id            String   @unique @db.Uuid
+  user_id               String   @db.Uuid
+  amount                Decimal  @db.Decimal
+  currency              String   @default("USD")
+  method                String
+  status                String   @default("pending")
+  transaction_reference String?
+  checkout_session_id   String?
+  gateway_provider      String?
+  created_at            DateTime @default(now()) @db.Timestamptz(6)
+  updated_at            DateTime @default(now()) @updatedAt @db.Timestamptz(6)
+  booking               Booking  @relation(fields: [booking_id], references: [id], onDelete: Cascade)
+  user                  Profile  @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model Notification {
+  id         String   @id @default(uuid()) @db.Uuid
+  user_id    String   @db.Uuid
+  title      String
+  message    String
+  type       String
+  is_read    Boolean  @default(false)
+  link       String?
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  user       Profile  @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model Wishlist {
+  id          String   @id @default(uuid()) @db.Uuid
+  user_id     String   @db.Uuid
+  property_id String   @db.Uuid
+  created_at  DateTime @default(now()) @db.Timestamptz(6)
+  property    Property @relation(fields: [property_id], references: [id], onDelete: Cascade)
+  user        User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, property_id])
+}
+
+model Favorite {
+  id          String   @id @default(uuid()) @db.Uuid
+  user_id     String   @db.Uuid
+  property_id String   @db.Uuid
+  created_at  DateTime @default(now()) @db.Timestamptz(6)
+  property    Property @relation(fields: [property_id], references: [id], onDelete: Cascade)
+  user        User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, property_id])
+}
+model PayoutRequest {
+  id         String   @id @default(uuid()) @db.Uuid
+  user_id    String   @db.Uuid
+  amount     Decimal  @db.Decimal
+  status     String   @default("pending") // pending, processed, rejected
+  method     String   // momo, bank
+  details    Json?    // Stores phone number or bank details at time of request
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  updated_at DateTime @default(now()) @updatedAt @db.Timestamptz(6)
+  user       Profile  @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
