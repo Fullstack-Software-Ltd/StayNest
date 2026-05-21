@@ -1,7 +1,17 @@
-SESSION: null
-DATA: {
-  "full_name": "manzi",
-  "phone": "0791706463",
-  "bio": "the best hoster"
+SESSION: {
+  "user": {
+    "name": "manzi ",
+    "email": "mazzalin32@gmail.com",
+    "image": null,
+    "id": "28b8b218-1aa8-4b7d-9870-edfa0481fe7c",
+    "role": "guest",
+    "isHostOnboarded": false
+  },
+  "expires": "2026-06-20T07:02:36.318Z"
 }
-ERROR: Not authenticated. Session has no user ID.
+DATA: {
+  "full_name": "manzi ",
+  "phone": "+250791706463",
+  "bio": "me and myself\n"
+}
+SUCCESS: User and Profile upserted.

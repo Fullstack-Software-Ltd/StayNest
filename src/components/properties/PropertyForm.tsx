@@ -21,7 +21,7 @@ export function PropertyForm({ property }: PropertyFormProps) {
   const router = useRouter()
   const { t } = useSettings()
   const [loading, setLoading] = useState(false)
-  const [formData, setFormData] = useState<CreatePropertyInput>({
+  const [formData, setFormData] = useState<Omit<CreatePropertyInput, 'max_guests'> & { max_guests: number | '' }>({
     name: property?.name || '',
     type: property?.type || 'Hotel',
     description: property?.description || '',
@@ -75,7 +75,7 @@ export function PropertyForm({ property }: PropertyFormProps) {
   }
 
   const handleImagesUpload = (urls: string[]) => {
-    setFormData((prev: CreatePropertyInput) => ({ 
+    setFormData((prev) => ({ 
       ...prev, 
       images: urls,
       main_image_url: urls.length > 0 ? urls[0] : '' 
@@ -119,14 +119,15 @@ export function PropertyForm({ property }: PropertyFormProps) {
 
     const submissionData = {
       ...formData,
+      max_guests: formData.max_guests === '' ? 1 : Number(formData.max_guests),
       type: isOtherType ? customType : formData.type
     }
 
     try {
       if (property) {
-        await updateProperty(property.id, submissionData as UpdatePropertyInput)
+        await updateProperty(property.id, submissionData as any)
       } else {
-        await createProperty(submissionData as CreatePropertyInput)
+        await createProperty(submissionData as any)
       }
       router.push('/owner/properties')
       router.refresh()

@@ -80,9 +80,9 @@ export function RegisterForm({ stats }: RegisterFormProps) {
   }
 
   return (
-    <div className="min-h-screen flex bg-[var(--background)]">
+    <div className="h-screen overflow-hidden flex bg-[var(--background)]">
       {/* Left panel */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-[var(--primary-dark)] via-[var(--primary)] to-[var(--primary-light)] relative overflow-hidden flex-col justify-between p-12 xl:p-16">
+      <div className="hidden lg:flex lg:w-1/2 h-full bg-gradient-to-br from-[var(--primary-dark)] via-[var(--primary)] to-[var(--primary-light)] relative overflow-hidden flex-col justify-between p-12 xl:p-16">
         {/* Imigongo heritage pattern */}
         <ImigongoPattern variant="dark" opacity={0.2} className="absolute inset-0 w-full h-full" />
         {/* Animated orbs */}
@@ -137,16 +137,16 @@ export function RegisterForm({ stats }: RegisterFormProps) {
       </div>
 
       {/* Right panel - form */}
-      <div className="flex-1 flex items-center justify-center px-5 sm:px-6 py-10 sm:py-12 md:py-20 bg-[var(--warm-white)]">
-        <div className="w-full max-w-sm animate-slide-up" style={{ animationDelay: '0.1s', animationFillMode: 'backwards' }}>
-          <div className="mb-10 sm:mb-12">
-            <Link href="/" className="text-2xl font-black text-[var(--primary)] tracking-tight lg:hidden block mb-8 sm:mb-10">
+      <div className="flex-1 h-full overflow-y-auto bg-[var(--warm-white)] flex flex-col justify-center py-8">
+        <div className="w-full max-w-sm mx-auto px-5 sm:px-6 animate-slide-up" style={{ animationDelay: '0.1s', animationFillMode: 'backwards' }}>
+          <div className="mb-8">
+            <Link href="/" className="text-2xl font-black text-[var(--primary)] tracking-tight lg:hidden block mb-6">
               Urugo<span className="text-[var(--accent)]">stay</span>
             </Link>
-            <h1 className="text-3xl sm:text-4xl font-black text-gray-900 tracking-tight mb-2 sm:mb-3">
+            <h1 className="text-3xl font-black text-gray-900 tracking-tight mb-2">
               {t('auth.register_title')}
             </h1>
-            <p className="text-gray-400 font-medium text-sm sm:text-base">
+            <p className="text-gray-400 font-medium text-sm">
               {t('auth.register_subtitle')}
             </p>
           </div>

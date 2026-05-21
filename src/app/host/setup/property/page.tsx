@@ -108,7 +108,7 @@ export default function HostPropertySetupPage() {
     offers_daily: true,
     offers_monthly: false,
     monthly_price: 0,
-    max_guests: 1,
+    max_guests: 1 as number | '',
     // Host Profile info
     hosting_business_name: '',
     bio: '',
@@ -241,6 +241,7 @@ export default function HostPropertySetupPage() {
       // 1. Create the property
       const result = await createProperty({
         ...propertyDraft,
+        max_guests: propertyDraft.max_guests === '' ? 1 : Number(propertyDraft.max_guests),
         type: finalType
       })
 
@@ -691,8 +692,8 @@ export default function HostPropertySetupPage() {
                     <Input
                       label="Max Guests"
                       type="number"
-                      value={propertyDraft.max_guests}
-                      onChange={(e) => setPropertyDraft(prev => ({ ...prev, max_guests: parseInt(e.target.value) || 1 }))}
+                      value={propertyDraft.max_guests || ''}
+                      onChange={(e) => setPropertyDraft(prev => ({ ...prev, max_guests: e.target.value === '' ? '' : (parseInt(e.target.value) || 1) }))}
                       placeholder="e.g. 4"
                       className="h-16 rounded-2xl bg-gray-50 text-xl font-bold font-mono"
                     />
