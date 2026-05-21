@@ -5,6 +5,7 @@ import { UpdateRoomInput } from '@/types/room'
 import { roomSchema } from '@/lib/validation'
 import { verifyRoomOwnership } from '@/lib/auth/access'
 import { revalidatePath } from 'next/cache'
+import { sanitizePrismaObject } from '@/utils/sanitize'
 
 export async function updateRoom(id: string, input: UpdateRoomInput) {
   // 1. Ownership Check
@@ -32,7 +33,7 @@ export async function updateRoom(id: string, input: UpdateRoomInput) {
     revalidatePath(`/owner/properties/${room.property_id}/edit`)
     revalidatePath(`/properties/${room.property_id}`)
     
-    return room
+    return sanitizePrismaObject(room)
   } catch (error) {
     console.error('UPDATE ROOM ERROR:', error)
     throw new Error('Failed to update room listing')

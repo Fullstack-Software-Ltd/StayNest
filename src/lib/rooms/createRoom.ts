@@ -5,6 +5,7 @@ import { CreateRoomInput } from '@/types/room'
 import { roomSchema } from '@/lib/validation'
 import { verifyOwnership } from '@/lib/auth/access'
 import { revalidatePath } from 'next/cache'
+import { sanitizePrismaObject } from '@/utils/sanitize'
 
 export async function createRoom(input: CreateRoomInput) {
   // 1. Ownership Check: Verify user owns the property this room belongs to
@@ -31,7 +32,7 @@ export async function createRoom(input: CreateRoomInput) {
     revalidatePath(`/owner/properties/${input.property_id}/edit`)
     revalidatePath(`/properties/${input.property_id}`)
     
-    return room
+    return sanitizePrismaObject(room)
   } catch (error) {
     console.error('CREATE ROOM ERROR:', error)
     throw new Error('Failed to create room listing')

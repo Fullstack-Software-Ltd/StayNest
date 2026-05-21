@@ -6,6 +6,7 @@ import { Sparkles, X, Send, Bot, User, Loader2, Search, ArrowRight, MessageSquar
 import { CompactPropertyCard } from './CompactPropertyCard'
 import { Button } from '@/components/ui/Button'
 import { cn } from '@/utils/cn'
+import { useSession } from 'next-auth/react'
 
 interface Message {
   role: 'user' | 'assistant' | 'system'
@@ -14,6 +15,8 @@ interface Message {
 }
 
 export function UrugoAssistant() {
+  const { data: session } = useSession()
+  const userName = session?.user?.name
   const [isOpen, setIsOpen] = useState(false)
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -24,6 +27,27 @@ export function UrugoAssistant() {
     }
   ])
   const [userLocation, setUserLocation] = useState<{ lat: number, lng: number } | null>(null)
+
+  const getGreeting = (name?: string | null) => {
+    if (name) {
+      return `Hi ${name}, welcome to UrugoStay. I am the Platform Manager. How can I assist you with finding your perfect luxury stay or managing your hosting experience in Rwanda today?`
+    }
+    return "Welcome to UrugoStay. I am the Platform Manager. How can I assist you with finding your perfect luxury stay or managing your hosting experience in Rwanda today?"
+  }
+
+  useEffect(() => {
+    setMessages(prev => {
+      if (prev.length === 1 && prev[0].role === 'assistant') {
+        return [
+          {
+            role: 'assistant',
+            content: getGreeting(userName)
+          }
+        ]
+      }
+      return prev
+    })
+  }, [userName])
   
   useEffect(() => {
     if ("geolocation" in navigator) {
@@ -54,6 +78,8 @@ export function UrugoAssistant() {
     return () => window.removeEventListener('open-urugo-assistant', handleOpen);
   }, [])
 
+const ERROR_FALLBACK_MSG = "I apologize, I'm having a little trouble connecting to my knowledge base. Please try again in a moment."
+
   const handleSend = async () => {
     if (!input.trim() || isLoading) return
 
@@ -64,8 +90,9 @@ export function UrugoAssistant() {
 
     try {
       // Filter out the initial greeting if it's the only thing there, or ensure we only send User/Assistant pairs
+      // Also filter out fallback error messages and empty/undefined contents to prevent poisoning history
       const apiMessages = messages.concat(userMessage)
-        .filter(m => m.role !== 'system')
+        .filter(m => m.role !== 'system' && m.content && m.content !== ERROR_FALLBACK_MSG)
         .map(m => ({ role: m.role, content: m.content }))
 
       // If the first message is 'assistant', remove it to ensure a valid sequence (User must come first)
@@ -82,26 +109,28 @@ export function UrugoAssistant() {
         })
       })
 
-      const data = await response.json()
-      
-      let properties = []
-      let content = data.content
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
 
-      // Check if the content has a tool result we can extract
-      // OR if the API returned structured data (handled in the route)
-      // In our route, we return the parsed content from Groq.
+      const data = await response.json()
+      if (data.error) {
+        throw new Error(data.error)
+      }
+      
+      const content = data.content || "I apologize, I received an invalid response."
       
       setMessages(prev => [...prev, { 
         role: 'assistant', 
         content: content,
-        properties: data.properties // We might want to handle this explicitly in the route if we used tool calls
+        properties: data.properties
       }])
 
     } catch (error) {
       console.error('Chat error:', error)
       setMessages(prev => [...prev, { 
         role: 'assistant', 
-        content: "I apologize, I'm having a little trouble connecting to my knowledge base. Please try again in a moment." 
+        content: ERROR_FALLBACK_MSG
       }])
     } finally {
       setIsLoading(false)

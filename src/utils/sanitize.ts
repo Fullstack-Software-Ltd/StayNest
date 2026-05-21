@@ -24,7 +24,7 @@ export function sanitizePrismaObject<T>(obj: T): T {
         }
         
         // Also handle common StayNest Decimal fields just in case JSON.stringify didn't catch them as numbers
-        if (['daily_price', 'monthly_price', 'latitude', 'longitude', 'amount', 'price_per_night', 'total_price'].includes(key)) {
+        if (['daily_price', 'monthly_price', 'latitude', 'longitude', 'amount', 'price_per_night', 'total_price', 'hostCommissionRate'].includes(key)) {
           if (o[key] !== null && o[key] !== undefined) {
             o[key] = Number(o[key])
           }

@@ -3,6 +3,7 @@ import { requireRole } from '@/lib/auth/requireRole'
 import { getPaymentById } from '@/lib/payments/getPaymentById'
 import { PaymentSuccessCard } from '@/components/payments/payment-success-card'
 import { prisma } from '@/lib/prisma'
+import { sanitizePrismaObject } from '@/utils/sanitize'
 
 export default async function PaymentSuccessPage({ params }: { params: Promise<{ paymentId: string }> }) {
   const { paymentId } = await params
@@ -31,19 +32,7 @@ export default async function PaymentSuccessPage({ params }: { params: Promise<{
     notFound()
   }
 
-  const mappedBooking = {
-    ...booking,
-    total_price: Number(booking.total_price),
-    property: {
-      ...booking.property,
-      daily_price: Number(booking.property.daily_price),
-      monthly_price: booking.property.monthly_price ? Number(booking.property.monthly_price) : null
-    },
-    room: {
-      ...booking.room,
-      price_per_night: Number(booking.room.price_per_night)
-    }
-  }
+  const mappedBooking = sanitizePrismaObject(booking)
 
   return (
     <div className="bg-gray-50/50 min-h-screen pt-8 pb-24">

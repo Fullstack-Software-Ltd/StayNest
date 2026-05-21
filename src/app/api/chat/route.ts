@@ -5,6 +5,46 @@ import { getUser } from '@/lib/auth/getUser'
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions'
 const MODEL = 'llama-3.3-70b-versatile'
 
+function sanitizeMessages(messages: any[]): { role: 'user' | 'assistant', content: string }[] {
+  if (!Array.isArray(messages)) return [{ role: 'user', content: 'hello' }]
+
+  // 1. Map and clean individual messages
+  const clean = messages
+    .filter(m => m && typeof m === 'object')
+    .map(m => ({
+      role: m.role === 'assistant' ? 'assistant' as const : 'user' as const,
+      content: typeof m.content === 'string' ? m.content.trim() : ''
+    }))
+    .filter(m => m.content.length > 0)
+
+  // 2. Enforce alternating roles by merging consecutive messages of the same role
+  const alternated: { role: 'user' | 'assistant', content: string }[] = []
+  
+  for (const msg of clean) {
+    if (alternated.length === 0) {
+      // The first message must be user
+      if (msg.role === 'user') {
+        alternated.push(msg)
+      }
+    } else {
+      const last = alternated[alternated.length - 1]
+      if (last.role === msg.role) {
+        // Merge contents of consecutive messages with same role
+        last.content += '\n' + msg.content
+      } else {
+        alternated.push(msg)
+      }
+    }
+  }
+
+  // Fallback if empty to ensure the API call does not fail validation
+  if (alternated.length === 0) {
+    alternated.push({ role: 'user', content: 'hello' })
+  }
+
+  return alternated
+}
+
 export async function POST(req: NextRequest) {
   try {
     const { messages, userLocation } = await req.json()
@@ -33,6 +73,7 @@ export async function POST(req: NextRequest) {
       - CONSULTING: Be elite, helpful, and sophisticated. Ask for clarification if a user's location is vague.
       
       USER STATUS: ${isLoggedIn ? 'LOGGED_IN' : 'GUEST'}
+      USER_NAME: ${isLoggedIn && user?.name ? user.name : 'UNKNOWN'}
       USER_LOCATION: ${userLocation ? `LAT:${userLocation.lat}, LNG:${userLocation.lng}` : 'UNKNOWN'}
       
       SPATIAL AWARENESS:
@@ -81,6 +122,8 @@ export async function POST(req: NextRequest) {
       }
     ]
 
+    const sanitized = sanitizeMessages(messages)
+
     // Step 1: Initial Prompt
     const firstResponse = await fetch(GROQ_API_URL, {
       method: 'POST',
@@ -93,7 +136,7 @@ export async function POST(req: NextRequest) {
         temperature: 0.7,
         messages: [
           { role: 'system', content: systemPrompt },
-          ...messages
+          ...sanitized
         ],
         tools: tools,
         tool_choice: 'auto'
@@ -119,7 +162,12 @@ export async function POST(req: NextRequest) {
       
       for (const toolCall of message.tool_calls) {
         if (toolCall.function.name === 'search_stays') {
-          const args = JSON.parse(toolCall.function.arguments)
+          let args: any = {}
+          try {
+            args = JSON.parse(toolCall.function.arguments)
+          } catch (e) {
+            console.error('[CHAT API] Failed to parse search_stays arguments:', e)
+          }
           let toolContent = ""
 
           if (!isLoggedIn) {
@@ -136,7 +184,12 @@ export async function POST(req: NextRequest) {
             content: toolContent
           })
         } else if (toolCall.function.name === 'calculate_distance') {
-          const args = JSON.parse(toolCall.function.arguments)
+          let args: any = {}
+          try {
+            args = JSON.parse(toolCall.function.arguments)
+          } catch (e) {
+            console.error('[CHAT API] Failed to parse calculate_distance arguments:', e)
+          }
           const { calculateDistance } = await import('@/lib/ai/searchTools')
           const { RWANDAN_LANDMARKS } = await import('@/lib/ai/landmarks')
 
@@ -154,7 +207,7 @@ export async function POST(req: NextRequest) {
             }
           }
 
-          if (to_lat !== undefined && to_lng !== undefined) {
+          if (args.from_lat !== undefined && args.from_lng !== undefined && to_lat !== undefined && to_lng !== undefined) {
             const dist = calculateDistance(args.from_lat, args.from_lng, to_lat, to_lng)
             toolResults.push({
               tool_call_id: toolCall.id,
@@ -178,7 +231,7 @@ export async function POST(req: NextRequest) {
       // Some Groq models are picky, let's use a non-empty string "Searching..." if it's null
       const finalMessages = [
         { role: 'system', content: systemPrompt },
-        ...messages,
+        ...sanitized,
         {
           role: 'assistant',
           content: message.content || "Searching our national database...",
@@ -212,7 +265,14 @@ export async function POST(req: NextRequest) {
       const properties = isLoggedIn 
         ? toolResults
             .filter(tr => tr.name === 'search_stays' && !tr.content.startsWith('ERROR'))
-            .map(tr => JSON.parse(tr.content))
+            .map(tr => {
+              try {
+                return JSON.parse(tr.content)
+              } catch (e) {
+                console.error('[CHAT API] Failed to parse tool results properties:', e)
+                return []
+              }
+            })
             .flat()
         : []
 

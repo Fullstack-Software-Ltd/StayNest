@@ -6,6 +6,7 @@ import { CreateBookingInput } from '@/types/booking'
 import { revalidatePath } from 'next/cache'
 import { bookingSchema } from '@/lib/validation'
 import { createNotification } from '@/lib/notifications/createNotification'
+import { sanitizePrismaObject } from '@/utils/sanitize'
 
 export async function createBooking(input: CreateBookingInput) {
   const session = await auth()
@@ -121,7 +122,7 @@ export async function createBooking(input: CreateBookingInput) {
       revalidatePath('/owner/dashboard')
     ])
 
-    return result
+    return sanitizePrismaObject(result)
   } catch (error: any) {
     console.error('CREATE BOOKING ERROR:', error)
     throw new Error(`Booking failed: ${error.message || 'Internal error'}`)

@@ -3,6 +3,7 @@
 import { prisma } from '@/lib/prisma'
 import { auth } from '@/auth'
 import { Booking } from '@/types/booking'
+import { sanitizePrismaObject } from '@/utils/sanitize'
 
 export async function getOwnerBookings() {
   const session = await auth()
@@ -44,16 +45,14 @@ export async function getOwnerBookings() {
       }
     })
 
-    return bookings.map(b => ({
-      ...b,
-      total_price: Number(b.total_price),
-      check_in: b.check_in.toISOString(),
-      check_out: b.check_out.toISOString(),
-      created_at: b.created_at.toISOString(),
-      updated_at: b.updated_at.toISOString(),
-      guest: b.user, // Mapping Prisma's 'user' relation (Profile) to 'guest'
-      payments: b.payment ? [b.payment] : [] // Mapping singular payment to array if needed for legacy compatibility
-    })) as any
+    return bookings.map(b => {
+      const sanitized = sanitizePrismaObject(b)
+      return {
+        ...sanitized,
+        guest: sanitized.user, // Mapping Prisma's 'user' relation (Profile) to 'guest'
+        payments: sanitized.payment ? [sanitized.payment] : [] // Mapping singular payment to array if needed for legacy compatibility
+      }
+    }) as any
   } catch (error) {
     console.error('Error fetching owner bookings:', error)
     return []
@@ -83,15 +82,11 @@ export async function getBookingByIdForOwner(bookingId: string) {
       throw new Error('Unauthorized')
     }
 
+    const sanitized = sanitizePrismaObject(booking)
     return {
-      ...booking,
-      total_price: Number(booking.total_price),
-      check_in: booking.check_in.toISOString(),
-      check_out: booking.check_out.toISOString(),
-      created_at: booking.created_at.toISOString(),
-      updated_at: booking.updated_at.toISOString(),
-      guest: booking.user,
-      payments: booking.payment ? [booking.payment] : []
+      ...sanitized,
+      guest: sanitized.user,
+      payments: sanitized.payment ? [sanitized.payment] : []
     } as any
   } catch (error: any) {
     throw new Error(error.message || 'Failed to fetch booking')
